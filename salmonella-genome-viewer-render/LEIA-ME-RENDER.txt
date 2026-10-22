@@ -1,0 +1,19 @@
+SALMONELLA GENOME VIEWER — PUBLICAR NO RENDER
+
+O projeto foi organizado para hospedagem no Render.
+
+OPÇÃO RECOMENDADA (via GitHub):
+1. Extraia este ZIP no computador.
+2. Crie um repositório no GitHub e envie TODOS os arquivos e pastas que estão dentro desta pasta (app.py, requirements.txt, render.yaml, Procfile, templates/, static/ e salmonella_sequence.txt).
+3. No Render, selecione New + > Web Service e conecte o repositório.
+4. O Render deve detectar as configurações do render.yaml. Se pedir os comandos manualmente, use:
+   Build Command: pip install -r requirements.txt
+   Start Command: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+5. Clique em Deploy. Quando terminar, abra a URL *.onrender.com mostrada pelo Render.
+
+IMPORTANTE:
+- Envie o conteúdo desta pasta para o repositório, não uma pasta externa com outro nível de diretório.
+- Mantenha salmonella_sequence.txt no mesmo nível de app.py; isso evita que o site precise baixar o genoma do NCBI no primeiro acesso.
+- Não é necessário alterar o app.py para rodar o Gunicorn. A linha app.run só é usada ao executar app.py diretamente.
+- No plano gratuito, o serviço pode entrar em suspensão após um período sem acessos e demorar um pouco para abrir na primeira visita.
+- Teste os recursos principais depois do deploy, especialmente o visualizador 3D e as consultas.

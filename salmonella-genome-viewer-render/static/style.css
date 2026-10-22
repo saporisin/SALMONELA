@@ -1,0 +1,465 @@
+*{box-sizing:border-box} :root{--bg:#061323;--panel:#0b1d32;--panel2:#0e2741;--border:#17466b;--text:#e7f2ff;--muted:#9bb6d2;--blue:#08a9f5;--green:#19b77a;--red:#ef5673;--purple:#a34df5;--yellow:#f4bd4f}
+html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 55% 0%,#0d2d4b 0%,var(--bg) 52%);color:var(--text);font-family:Inter,Segoe UI,Arial,sans-serif;font-size:14px}
+.topbar{min-height:82px;display:flex;align-items:center;gap:16px;padding:14px 26px;border-bottom:1px solid var(--border);background:#061426eF;position:sticky;top:0;z-index:5}.brand-mark{font-size:38px}.brand h1{font-size:23px;margin:0}.brand h1 span,.hero h2 span{color:var(--blue)}.brand p{font-size:10px;letter-spacing:2px;color:var(--muted);margin:5px 0 0}.reference{margin-left:auto;display:flex;align-items:center;gap:12px;color:var(--muted);font-size:12px}.reference b{color:#68d5ff;border:1px solid #17659b;padding:8px 12px;border-radius:18px}
+.layout{display:grid;grid-template-columns:215px minmax(0,1fr);gap:22px;max-width:1600px;margin:auto;padding:22px}.sidebar{position:sticky;top:105px;height:calc(100vh - 125px);display:flex;flex-direction:column;gap:8px}.sidebar a{color:#bdd7f2;text-decoration:none;padding:13px;border-radius:9px;border:1px solid transparent}.sidebar a:hover,.sidebar a.active{background:#07345a;border-color:#125783;color:#42c9ff}.side-note{margin-top:auto;border:1px solid var(--border);border-radius:10px;padding:14px;color:var(--muted);font-size:12px;line-height:1.7;background:#0a1a2b}
+main{min-width:0;display:flex;flex-direction:column;gap:18px}.hero,.panel{background:linear-gradient(145deg,#0c2239f5,#07182bf5);border:1px solid var(--border);border-radius:12px;overflow:hidden}.hero{min-height:210px;padding:28px;display:flex;position:relative;align-items:center}.hero-copy{max-width:690px;position:relative;z-index:1}.eyebrow{color:#37caff;font-weight:700;letter-spacing:1.5px;font-size:12px}.hero h2{font-size:30px;margin:10px 0}.hero p{color:#b8cfe6;line-height:1.6;max-width:650px}.hero-actions{display:flex;gap:10px;margin-top:18px}.helix-art{font-size:150px;position:absolute;right:7%;opacity:.19;transform:rotate(-15deg);pointer-events:none}.status{font-size:12px!important;margin-bottom:0}.panel{padding:18px}.panel-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;padding-bottom:14px;border-bottom:1px solid #173955;margin-bottom:16px}.panel-heading h3,.about h3{font-size:18px;margin:0 0 5px}.panel-heading p{margin:0;color:var(--muted);font-size:12px}.total-chip{color:var(--muted);font-size:12px;white-space:nowrap}.total-chip b{color:#fff}
+button,.button{border:1px solid var(--blue);background:linear-gradient(100deg,#087edc,#08b7f3);color:#fff;padding:11px 16px;border-radius:8px;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:7px;font-weight:600}button:hover,.button:hover{filter:brightness(1.12)}button:disabled{opacity:.4;cursor:not-allowed}.secondary{background:#0a1d32;border-color:#24577e;color:#9edbff}.controls{display:flex;align-items:end;gap:10px;flex-wrap:wrap}.controls label{font-size:11px;color:var(--muted);display:flex;flex-direction:column;gap:6px}.controls input,.controls select{background:#061629;border:1px solid #24577e;color:#fff;border-radius:7px;padding:10px;width:140px}.controls select{width:125px}
+.legend{display:flex;gap:15px;flex-wrap:wrap;margin:18px 0 12px;color:var(--muted);font-size:11px}.legend span{display:flex;align-items:center;gap:6px}.legend i,.base-cards i,.pairing i{font-style:normal;font-weight:800;display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:7px;color:#fff}.base-a{background:var(--green)}.base-t{background:var(--red)}.base-c{background:var(--purple)}.base-g{background:#1687f8}.base-n{background:var(--yellow);color:#18202a!important}
+.ladder-wrap{border:1px solid #1b4d73;border-radius:8px;overflow:hidden;background:#061629}.ladder-title,.ladder-row{display:grid;grid-template-columns:90px 1fr 45px 1fr;align-items:center;gap:8px}.ladder-title{padding:12px 14px;background:#0b2138;color:#8db8db;font-size:10px;letter-spacing:.7px}.ladder-row{padding:4px 14px;border-top:1px solid #102a43;font-family:Consolas,monospace}.ladder-row:hover{background:#0c2943}.pos{color:#83b5df;text-align:right;padding-right:12px}.nucleotide{text-align:center;font-size:17px;font-weight:800}.pair-dash{text-align:center;color:#52728f}.range{font-size:12px;color:var(--muted)}.sequence-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px}.loading{padding:25px;text-align:center;color:var(--muted)}
+.two-columns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.stats{display:grid;gap:10px}.stat-row{display:grid;grid-template-columns:26px 1fr auto;align-items:center;gap:9px}.stat-dot{width:12px;height:12px;border-radius:50%;justify-self:center}.stat-row small{color:var(--muted)}.stat-row b{font-variant-numeric:tabular-nums}.gc-box{margin-top:18px;padding-top:14px;border-top:1px solid #173955}.gc-box>div:first-child{display:flex;justify-content:space-between;color:var(--muted);margin-bottom:10px}.gc-box b{color:#fff}.bar{height:10px;background:#203c59;border-radius:10px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#1687f8,#36c5ff);transition:width .3s}
+.base-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px}.base-cards article{display:flex;gap:11px;align-items:center;border:1px solid #1b4d73;border-radius:8px;padding:12px}.base-cards i{width:38px;height:38px;font-size:21px;flex-shrink:0}.base-cards b,.base-cards small{display:block}.base-cards small{font-size:10px;color:var(--muted);margin-top:5px}.pairing{margin-top:14px;border:1px solid #1b4d73;border-radius:8px;padding:12px;color:#bcd6ee}.pairing>div{display:flex;align-items:center;gap:10px;margin-top:10px}.pairing i{width:34px;height:34px;border-radius:50%;font-size:17px}.pairing span{flex:1}
+textarea{width:100%;min-height:100px;resize:vertical;background:#061629;color:#e7f2ff;border:1px solid #24577e;border-radius:8px;padding:13px;font:13px Consolas,monospace;line-height:1.6}.analyze-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:10px}.analysis-result{margin-top:14px}.result-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.result-cell{background:#0c2943;border:1px solid #1b4d73;border-radius:8px;padding:10px;text-align:center}.result-cell b{display:block;font-size:18px}.result-cell small{color:var(--muted)}.about p{color:#afc7df;line-height:1.7}.about code{color:#8cddff}.download-link{display:inline-block;color:#61d5ff;margin-top:8px}footer{text-align:center;color:#6686a5;font-size:11px;padding:5px 0 15px}
+@media(max-width:1000px){.layout{grid-template-columns:1fr;padding:12px}.sidebar{position:static;height:auto;display:flex;flex-direction:row;overflow-x:auto}.sidebar a{white-space:nowrap}.side-note{display:none}.two-columns{grid-template-columns:1fr}.reference span{display:none}.hero{padding:22px}.helix-art{right:0;font-size:100px;opacity:.12}}
+@media(max-width:600px){.topbar{padding:12px}.brand h1{font-size:17px}.brand p{font-size:8px;letter-spacing:1px}.brand-mark{font-size:27px}.reference{display:none}.layout{gap:12px}.hero h2{font-size:24px}.hero{padding:18px}.panel{padding:13px}.controls{align-items:stretch}.controls label{flex:1}.controls input,.controls select{width:100%}.controls button{flex:1}.ladder-title,.ladder-row{grid-template-columns:58px 1fr 28px 1fr;gap:4px;padding-left:7px;padding-right:7px}.nucleotide{font-size:15px}.legend{gap:8px}.base-cards{grid-template-columns:1fr}.result-grid{grid-template-columns:repeat(2,1fr)}.panel-heading{align-items:flex-start}.total-chip{font-size:10px}}
+
+
+/* Animações e ferramenta de transcrição DNA → RNA */
+.animated-helix{display:flex;flex-direction:column;align-items:center;gap:4px;animation:helixFloat 4s ease-in-out infinite}
+.animated-helix span{display:block;animation:helixSpin 8s linear infinite}
+.animated-helix small{font-size:10px;letter-spacing:2px;color:#6bdcff;white-space:nowrap}
+@keyframes helixFloat{0%,100%{transform:translateY(0) rotate(-15deg)}50%{transform:translateY(-10px) rotate(-9deg)}}
+@keyframes helixSpin{0%,100%{filter:drop-shadow(0 0 0 #08a9f5)}50%{filter:drop-shadow(0 0 15px #08a9f5)}}
+.panel{animation:panelReveal .55s ease both}
+@keyframes panelReveal{from{opacity:.55;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.ladder-row{animation:rowIn .25s ease both}
+@keyframes rowIn{from{opacity:.35;transform:translateX(-4px)}to{opacity:1;transform:translateX(0)}}
+.ladder-row .nucleotide{transition:transform .18s,filter .18s}
+.ladder-row:hover .nucleotide{transform:scale(1.12);filter:brightness(1.15)}
+.transcription-panel{position:relative}
+.rna-chip,.result-pill{border:1px solid #1d826c;color:#80f3d1;background:#07352f;border-radius:20px;padding:7px 10px;font-size:11px;white-space:nowrap}
+.transcription-intro{display:flex;align-items:center;gap:18px;padding:12px 14px;margin-bottom:17px;border:1px solid #1b4d73;border-radius:9px;background:linear-gradient(110deg,#09263c,#0a1b30)}
+.transcription-intro p{color:var(--muted);line-height:1.6;margin:0}
+.molecule-animation{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.molecule-strand{display:grid;grid-template-columns:repeat(4,20px);gap:4px}
+.molecule-strand span{height:22px;width:20px;display:grid;place-items:center;border-radius:5px;font-size:10px;font-weight:800;animation:basePulse 2s ease-in-out infinite}
+.molecule-strand span:nth-child(2n){animation-delay:.3s}
+.molecule-strand span:nth-child(3n){animation-delay:.6s}
+.dna-strand span{background:#123e60;color:#80d8ff;border:1px solid #1687c4}
+.rna-strand span{background:#0b493e;color:#8ff4d5;border:1px solid #19b77a}
+.molecule-arrows{font-size:24px;color:#42c9ff;animation:arrowPulse 1.5s ease-in-out infinite}
+@keyframes basePulse{0%,100%{transform:translateY(0);opacity:.75}50%{transform:translateY(-4px);opacity:1}}
+@keyframes arrowPulse{0%,100%{transform:translateX(0);opacity:.65}50%{transform:translateX(4px);opacity:1}}
+.transcription-label{display:block;color:var(--muted);font-size:12px;margin:10px 0 7px}
+.transcription-options{display:flex;flex-direction:column;gap:7px;margin-top:12px}
+.transcription-options label{font-size:12px;color:var(--muted)}
+.transcription-options select{width:100%;max-width:560px;background:#061629;border:1px solid #24577e;color:#fff;border-radius:7px;padding:11px}
+.transcription-actions{flex-wrap:wrap}
+.transcription-result{margin-top:16px}
+.transcription-summary{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;color:#bdd7f2;margin-bottom:12px}
+.sequence-output{border:1px solid #1b4d73;border-radius:9px;overflow:hidden;background:#061629}
+.sequence-output h4{font-size:12px;margin:0;padding:12px 14px;background:#0b2138;color:#9edbff}
+.rna-sequence{padding:14px;display:flex;flex-wrap:wrap;gap:5px;max-height:300px;overflow:auto;line-height:1.9}
+.rna-chunk{display:inline-flex;gap:2px;margin-right:7px}
+.rna-chunk i{font-style:normal;font-family:Consolas,monospace;font-size:14px;font-weight:800;width:23px;height:27px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;animation:baseAppear .25s ease both}
+.rna-chunk i.base-a{background:var(--green);color:white}
+.rna-chunk i.base-u{background:#ed7b36;color:white}
+.rna-chunk i.base-c{background:var(--purple);color:white}
+.rna-chunk i.base-g{background:#1687f8;color:white}
+@keyframes baseAppear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.transcription-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.muted{color:var(--muted);font-size:12px}
+.science-note{color:#9bb6d2;font-size:12px;line-height:1.7;margin:16px 0 0;padding:12px;border-left:3px solid #1687f8;background:#081b2d}
+.error{color:#ff9aaa;background:#351623;border:1px solid #7a2d45;padding:12px;border-radius:8px}
+@media(max-width:600px){.transcription-intro{align-items:flex-start;flex-direction:column}.molecule-animation{transform:scale(.92);transform-origin:left center}.rna-chip{display:none}.transcription-summary{align-items:flex-start;flex-direction:column}.rna-sequence{padding:9px}.rna-chunk i{width:20px;height:24px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+
+
+/* Modelo 3D ilustrativo da dupla hélice */
+.dna3d-panel{overflow:hidden;background:radial-gradient(ellipse at 18% 50%,rgba(14,116,180,.12),transparent 42%),var(--panel)}
+.dna3d-layout{display:grid;grid-template-columns:minmax(260px,1fr) minmax(220px,.85fr);gap:22px;align-items:center}
+.dna3d-stage{position:relative;min-height:350px;display:flex;align-items:center;justify-content:center;perspective:850px;isolation:isolate;overflow:hidden;border:1px solid rgba(51,151,213,.2);border-radius:14px;background:radial-gradient(ellipse at center,rgba(10,80,125,.28),rgba(4,15,30,.35) 65%,transparent 100%)}
+.dna3d-glow{position:absolute;width:210px;height:280px;border-radius:50%;background:#087bbd;filter:blur(65px);opacity:.16;animation:glowPulse 4s ease-in-out infinite}
+.dna3d-helix{position:relative;width:150px;height:285px;transform-style:preserve-3d;transform:rotateX(-9deg) rotateZ(-8deg);animation:dna3dRotate 12s linear infinite}
+.helix-rung{position:absolute;top:calc(var(--i)*17px);left:50%;width:132px;height:20px;margin-left:-66px;display:flex;align-items:center;justify-content:space-between;transform-style:preserve-3d;transform:rotateY(calc(var(--i)*45deg)) translateZ(24px);animation:rungFloat 3.5s ease-in-out infinite;animation-delay:var(--delay)}
+.helix-base{width:25px;height:25px;border-radius:50%;display:grid;place-items:center;font:800 11px/1 Consolas,monospace;box-shadow:0 0 12px currentColor, inset 0 0 8px rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.5);z-index:2}
+.helix-base.base-a{background:#16a56b;color:#a8ffdc}.helix-base.base-t{background:#db6c24;color:#ffe1bc}.helix-base.base-c{background:#7154d9;color:#ddd2ff}.helix-base.base-g{background:#167bd4;color:#b9e5ff}
+.helix-bond{height:3px;flex:1;margin:0 -1px;background:linear-gradient(90deg,#6dd7ff,#b4caff,#6dd7ff);box-shadow:0 0 8px #4ac8ff;opacity:.85}
+.dna3d-floor{position:absolute;bottom:25px;width:170px;height:35px;border-radius:50%;background:#1282be;filter:blur(22px);opacity:.18;transform:rotateX(70deg)}
+.dna3d-info h4{font-size:18px;margin:13px 0 8px}.dna3d-info>p{color:var(--muted);font-size:13px;line-height:1.65}
+.pair-legend{display:flex;align-items:center;gap:7px;margin:13px 0;color:#e0f1ff;font-size:13px}
+.legend-dot{width:10px;height:10px;border-radius:50%;display:inline-block}.a-dot{background:#16c784;box-shadow:0 0 9px #16c784}.c-dot{background:#8b70ff;box-shadow:0 0 9px #8b70ff}.legend-desc{color:var(--muted);font-size:11px;margin-left:auto}
+.dna3d-controls{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 12px}
+.dna3d-helix.is-paused,.dna3d-helix.is-paused .helix-rung,.dna3d-glow.is-paused{animation-play-state:paused}
+.dna3d-helix.is-fast{animation-duration:4.5s}
+@keyframes dna3dRotate{from{transform:rotateX(-9deg) rotateZ(-8deg) rotateY(0)}to{transform:rotateX(-9deg) rotateZ(-8deg) rotateY(360deg)}}
+@keyframes rungFloat{0%,100%{filter:brightness(.85);translate:0 0}50%{filter:brightness(1.25);translate:0 -2px}}
+@keyframes glowPulse{0%,100%{opacity:.12;scale:.9}50%{opacity:.23;scale:1.12}}
+@media(max-width:700px){.dna3d-layout{grid-template-columns:1fr}.dna3d-stage{min-height:300px}.dna3d-info{padding:0 4px}}
+@media(prefers-reduced-motion:reduce){.dna3d-helix,.helix-rung,.dna3d-glow{animation:none!important}}
+/* ===== MODELO 3D DE RNA ===== */
+
+.rna3d-section {
+    padding: 55px 20px;
+    color: #eaf2ff;
+}
+
+.rna3d-header {
+    max-width: 850px;
+    margin: 0 auto 25px;
+    text-align: center;
+}
+
+.rna3d-tag {
+    color: #61e6b2;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 3px;
+}
+
+.rna3d-header h2 {
+    margin: 12px 0;
+    font-size: clamp(28px, 5vw, 42px);
+}
+
+.rna3d-header p {
+    color: #aabbd1;
+    line-height: 1.7;
+}
+
+.rna3d-card {
+    max-width: 950px;
+    margin: auto;
+    overflow: hidden;
+    border: 1px solid rgba(120, 180, 255, 0.22);
+    border-radius: 22px;
+    background:
+        radial-gradient(ellipse at 50% 40%, #17365a 0%, #0a1528 65%);
+    box-shadow: 0 18px 55px rgba(0, 0, 0, 0.25);
+}
+
+.rna3d-stage {
+    position: relative;
+    height: 430px;
+    overflow: hidden;
+    perspective: 900px;
+}
+
+.rna3d-scene {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 900px;
+    perspective-origin: 50% 50%;
+}
+
+.rna3d-molecule {
+    position: relative;
+    width: 1px;
+    height: 1px;
+    transform-style: preserve-3d;
+    animation: rna3d-rotate 12s linear infinite;
+}
+
+.rna3d-node {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    margin: -17.5px 0 0 -17.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow:
+        inset -5px -6px 10px rgba(0, 0, 0, 0.28),
+        inset 3px 3px 7px rgba(255, 255, 255, 0.4),
+        0 0 18px var(--rna-glow);
+    backface-visibility: visible;
+}
+
+.rna3d-node::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: 5px;
+    height: 26px;
+    top: 28px;
+    left: 13px;
+    border-radius: 5px;
+    background: linear-gradient(
+        to bottom,
+        var(--rna-glow),
+        rgba(120, 180, 255, 0.15)
+    );
+}
+
+.rna3d-node.rna-A {
+    background: #f05d75;
+    --rna-glow: rgba(240, 93, 117, 0.65);
+}
+
+.rna3d-node.rna-U {
+    background: #f0a43a;
+    --rna-glow: rgba(240, 164, 58, 0.65);
+}
+
+.rna3d-node.rna-C {
+    background: #37b8e8;
+    --rna-glow: rgba(55, 184, 232, 0.65);
+}
+
+.rna3d-node.rna-G {
+    background: #48ce91;
+    --rna-glow: rgba(72, 206, 145, 0.65);
+}
+
+.rna3d-floor {
+    position: absolute;
+    width: 220px;
+    height: 40px;
+    left: 50%;
+    bottom: 28px;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: rgba(35, 120, 210, 0.15);
+    filter: blur(18px);
+    pointer-events: none;
+}
+
+.rna3d-legend {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px 22px;
+    padding: 20px;
+    border-top: 1px solid rgba(150, 190, 240, 0.12);
+}
+
+.rna3d-legend span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #d5e2f3;
+    font-size: 13px;
+}
+
+.rna3d-legend i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.rna-base-a { background: #f05d75; }
+.rna-base-u { background: #f0a43a; }
+.rna-base-c { background: #37b8e8; }
+.rna-base-g { background: #48ce91; }
+
+.rna3d-controls {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 8px 20px 18px;
+}
+
+.rna3d-controls button {
+    border: 1px solid rgba(130, 190, 255, 0.3);
+    border-radius: 10px;
+    padding: 11px 16px;
+    color: #f2f7ff;
+    background: #18304e;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.rna3d-controls button:hover {
+    background: #24527b;
+    transform: translateY(-2px);
+}
+
+.rna3d-status {
+    text-align: center;
+    color: #61e6b2;
+    font-size: 13px;
+    min-height: 20px;
+    padding: 0 12px;
+}
+
+.rna3d-info {
+    margin-top: 12px;
+    padding: 25px;
+    background: rgba(4, 12, 26, 0.45);
+    border-top: 1px solid rgba(150, 190, 240, 0.12);
+}
+
+.rna3d-info h3 {
+    margin-top: 0;
+    color: #80c7ff;
+}
+
+.rna3d-info p {
+    color: #bdcce0;
+    line-height: 1.8;
+    font-size: 14px;
+}
+
+@keyframes rna3d-rotate {
+    from { transform: rotateX(-12deg) rotateY(0deg); }
+    to   { transform: rotateX(-12deg) rotateY(360deg); }
+}
+
+@media (max-width: 600px) {
+    .rna3d-section {
+        padding: 35px 12px;
+    }
+
+    .rna3d-stage {
+        height: 350px;
+    }
+
+    .rna3d-node {
+        width: 30px;
+        height: 30px;
+        margin: -15px 0 0 -15px;
+        font-size: 11px;
+    }
+
+    .rna3d-node::after {
+        left: 11px;
+    }
+
+    .rna3d-controls button {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .rna3d-info {
+        padding: 20px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rna3d-molecule {
+        animation-duration: 40s;
+    }
+}
+
+/* Correção das bases do RNA 3D */
+.rna3d-nucleotide {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 35px;
+    height: 35px;
+    margin: -17px 0 0 -17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    font-weight: 900;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 0 18px currentColor;
+    transform:
+        rotateY(var(--angle))
+        translateZ(var(--depth))
+        translateY(var(--vertical));
+}
+
+.rna3d-nucleotide.rna-base-a {
+    background: #f05d75;
+}
+
+.rna3d-nucleotide.rna-base-u {
+    background: #f0a43a;
+}
+
+.rna3d-nucleotide.rna-base-c {
+    background: #37b8e8;
+}
+
+.rna3d-nucleotide.rna-base-g {
+    background: #48ce91;
+}
+
+.rna3d-molecule.is-paused {
+    animation-play-state: paused;
+}
+
+.rna3d-molecule.is-fast {
+    animation-duration: 4s;
+}
+
+.rna3d-molecule.is-curved {
+    transform: rotateX(25deg) rotateY(0deg);
+}
+
+
+/* Melhorias de interação e acabamento do RNA 3D */
+.rna3d-stage { cursor: grab; touch-action: pan-y; }
+.rna3d-stage.is-dragging { cursor: grabbing; }
+.rna3d-scene { transition: transform .12s ease-out; transform-style: preserve-3d; }
+.rna3d-molecule { will-change: transform; }
+.rna3d-hint { margin: 0; padding: 12px 18px 0; color: #9fc5e8; text-align: center; font-size: 12px; }
+.rna3d-node { transition: filter .2s ease, box-shadow .2s ease; }
+.rna3d-node:hover { filter: brightness(1.3); box-shadow: 0 0 28px var(--rna-glow); z-index: 5; }
+.rna3d-sequence-panel { display:flex; flex-direction:column; align-items:center; gap:8px; padding: 8px 20px 22px; }
+.rna3d-sequence-panel code { color:#79e6c1; letter-spacing:2px; overflow-wrap:anywhere; text-align:center; }
+.translation-panel { margin-top: 24px; padding: 26px; border:1px solid var(--border); border-radius:18px; background:linear-gradient(145deg,rgba(14,39,65,.96),rgba(7,21,38,.96)); }
+.translation-panel .section-heading { margin-bottom:20px; }
+.translation-panel h2 { margin:8px 0; font-size:clamp(22px,3vw,30px); }
+.translation-panel p { color:var(--muted); line-height:1.65; }
+.translation-panel label { display:block; margin:12px 0 8px; font-weight:700; }
+.translation-panel textarea { width:100%; padding:14px; resize:vertical; color:var(--text); background:#061323; border:1px solid var(--border); border-radius:10px; font:inherit; }
+.translation-actions { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0 18px; }
+.translation-actions button { border:1px solid #23628b; border-radius:9px; padding:10px 14px; background:#0878b8; color:white; font-weight:700; cursor:pointer; }
+.translation-actions button.secondary { background:#18304e; }
+.codon-results { display:flex; flex-wrap:wrap; gap:9px; padding:14px; min-height:58px; border-radius:12px; background:rgba(2,11,22,.55); }
+.codon-chip { display:flex; flex-direction:column; align-items:center; gap:4px; min-width:90px; padding:10px 12px; border:1px solid #27628b; border-radius:10px; background:#102c48; }
+.codon-chip b { color:#71e4bf; letter-spacing:2px; }
+.codon-chip small { color:#d4e7fa; text-align:center; }
+.science-note { font-size:12px; }
+@media (max-width: 650px) {
+  .rna3d-section { padding:30px 8px; }
+  .rna3d-stage { height:360px; }
+  .rna3d-controls { padding-left:10px; padding-right:10px; }
+  .rna3d-controls button { padding:10px 11px; font-size:12px; }
+  .translation-panel { padding:18px; }
+}
+
+
+/* ===== VISUAL REFRESH 2.1 — scientific dashboard ===== */
+:root{--bg:#050b16;--panel:#0a1425;--panel2:#101f35;--border:rgba(112,153,204,.2);--text:#edf5ff;--muted:#9aacc6;--blue:#47d7ff;--green:#54edb0;--red:#ff718d;--purple:#b39aff;--yellow:#ffd166}
+html{scroll-padding-top:100px}
+body{background:radial-gradient(ellipse at 78% -10%,rgba(31,113,176,.2),transparent 38%),radial-gradient(ellipse at 0% 38%,rgba(20,92,108,.12),transparent 35%),var(--bg);letter-spacing:.01em}
+.topbar{min-height:88px;padding:15px clamp(16px,3vw,42px);gap:17px;background:rgba(5,11,22,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(115,175,225,.18);box-shadow:0 8px 32px rgba(0,0,0,.16)}
+.brand-mark{display:grid;place-items:center;width:48px;height:48px;border:1px solid rgba(71,215,255,.28);border-radius:15px;background:linear-gradient(145deg,rgba(71,215,255,.16),rgba(84,237,176,.06));font-size:29px;box-shadow:inset 0 0 22px rgba(71,215,255,.06)}
+.brand h1{font-size:clamp(19px,2vw,24px);letter-spacing:-.045em}.brand h1 span{color:var(--blue)}.brand p{letter-spacing:2.2px;font-size:9px;color:#8ca5c4}
+.reference{gap:11px}.reference b{background:rgba(71,215,255,.07);border-color:rgba(71,215,255,.28);color:#9cecff;border-radius:9px;font-family:Consolas,monospace;letter-spacing:.04em}.reference span{color:#8da2bf}
+.layout{grid-template-columns:225px minmax(0,1fr);gap:24px;max-width:1720px;padding:25px clamp(14px,2.4vw,36px)}
+.sidebar{top:108px;height:calc(100vh - 128px);padding:10px;border:1px solid rgba(112,153,204,.15);border-radius:18px;background:rgba(8,18,34,.76);box-shadow:0 16px 40px rgba(0,0,0,.12);gap:5px}
+.sidebar a{display:flex;align-items:center;gap:5px;padding:12px 13px;border-radius:10px;color:#a9bad3;font-size:12px;transition:background .2s,border-color .2s,transform .2s}
+.sidebar a:hover{transform:translateX(2px);background:rgba(71,215,255,.07);border-color:rgba(71,215,255,.12);color:#d9f8ff}
+.sidebar a.active{background:linear-gradient(100deg,rgba(71,215,255,.16),rgba(71,215,255,.04));border-color:rgba(71,215,255,.25);color:#9beaff;box-shadow:inset 3px 0 #47d7ff}
+.side-note{background:rgba(71,215,255,.035);border-color:rgba(112,153,204,.16);border-radius:12px;font-size:11px;color:#8fa6c3}
+main{gap:22px}
+.hero,.panel{background:linear-gradient(145deg,rgba(13,27,48,.97),rgba(7,16,30,.98));border:1px solid rgba(112,153,204,.19);border-radius:17px;box-shadow:0 15px 40px rgba(0,0,0,.13)}
+.hero{min-height:260px;padding:clamp(24px,4vw,48px);isolation:isolate}
+.hero:before{content:"";position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse at 88% 45%,rgba(71,215,255,.13),transparent 33%),linear-gradient(110deg,transparent 45%,rgba(84,237,176,.025));pointer-events:none}
+.hero-copy{max-width:740px}.eyebrow{display:inline-flex;align-items:center;gap:8px;color:#7be7ff;font-size:10px;letter-spacing:2.2px}.eyebrow:before{content:"";display:inline-block;width:20px;height:2px;background:var(--green);border-radius:4px}
+.hero h2{font-size:clamp(30px,4vw,44px);line-height:1.12;letter-spacing:-.055em;margin:13px 0}.hero h2 span{color:#68e6ff;text-shadow:0 0 26px rgba(71,215,255,.17)}.hero p{max-width:620px;color:#a9bbd4;font-size:14px;line-height:1.8}.hero-actions{gap:11px}.hero-actions button,.hero-actions .button{border-radius:10px;padding:12px 17px;box-shadow:0 8px 24px rgba(8,126,220,.16)}.hero-actions .secondary{box-shadow:none}.helix-art{right:8%;font-size:165px;opacity:.24;filter:drop-shadow(0 0 28px rgba(71,215,255,.2))}.helix-art small{font-size:9px;color:#83f0d1}
+.status{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid rgba(112,153,204,.16);border-radius:8px;background:rgba(112,153,204,.045);color:#9aacc6!important}
+.panel{padding:clamp(16px,2vw,25px);scroll-margin-top:105px;transition:border-color .2s,box-shadow .2s}.panel:hover{border-color:rgba(112,180,225,.28);box-shadow:0 18px 45px rgba(0,0,0,.17)}
+.panel-heading{padding-bottom:17px;margin-bottom:19px;border-bottom:1px solid rgba(112,153,204,.15)}.panel-heading h3,.about h3{font-size:17px;letter-spacing:-.025em}.panel-heading p{font-size:12px;color:#91a6c2;line-height:1.55;margin-top:5px}.total-chip{padding:8px 11px;border:1px solid rgba(112,153,204,.18);border-radius:9px;background:rgba(112,153,204,.045)}
+button,.button{border-radius:9px;transition:transform .18s,filter .18s,box-shadow .18s;font-weight:700;letter-spacing:.01em}button:hover,.button:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 7px 18px rgba(0,0,0,.18)}button:active,.button:active{transform:translateY(0)}button.secondary,.button.secondary{background:rgba(17,34,57,.9);border-color:rgba(112,153,204,.25);color:#b5d9f5}
+.controls input,.controls select,textarea,.transcription-options select{background:#060f1d;border-color:rgba(112,153,204,.3);border-radius:9px;outline:none;transition:border-color .2s,box-shadow .2s}.controls input:focus,.controls select:focus,textarea:focus,.transcription-options select:focus{border-color:#47d7ff;box-shadow:0 0 0 3px rgba(71,215,255,.1)}
+.ladder-wrap,.sequence-output{border-color:rgba(112,153,204,.22);border-radius:12px;background:#060f1d}.ladder-title,.sequence-output h4{background:rgba(71,215,255,.055);color:#9cb8d8}.ladder-row{border-color:rgba(112,153,204,.08)}.ladder-row:hover{background:rgba(71,215,255,.045)}
+.base-cards article,.pairing,.result-cell{border-color:rgba(112,153,204,.2);border-radius:11px;background:rgba(112,153,204,.035)}.base-cards article{transition:transform .18s,border-color .18s}.base-cards article:hover{transform:translateY(-2px);border-color:rgba(71,215,255,.35)}.result-cell{padding:13px}.result-cell b{font-size:21px;color:#f0f7ff}.stats{gap:13px}.stat-row{padding:4px 0}.gc-box{border-color:rgba(112,153,204,.16)}.bar{background:#1b2c43}.bar span{background:linear-gradient(90deg,#47d7ff,#54edb0);box-shadow:0 0 14px rgba(71,215,255,.2)}
+.helix-stage{border-radius:15px;border-color:rgba(71,215,255,.2);background:radial-gradient(ellipse at 50% 40%,rgba(25,105,147,.22),rgba(4,12,24,.94) 70%)}.helix-info{border:1px solid rgba(112,153,204,.18);border-radius:11px;background:rgba(112,153,204,.035);padding:14px}.helix-source{margin-top:12px;padding:13px;border:1px solid rgba(112,153,204,.16);border-radius:11px;background:rgba(112,153,204,.025)}.helix-controls{margin-top:12px;padding:13px;border:1px solid rgba(112,153,204,.16);border-radius:11px;background:rgba(112,153,204,.025)}
+.transcription-intro{border-color:rgba(84,237,176,.16);border-radius:12px;background:linear-gradient(110deg,rgba(10,48,55,.56),rgba(9,24,40,.7))}.science-note{border-left-color:#54edb0;background:rgba(84,237,176,.045);border-radius:0 9px 9px 0;color:#9eb9d0}.rna-chip,.result-pill{border-color:rgba(84,237,176,.25);color:#8bf4d0;background:rgba(12,81,62,.32);border-radius:8px}
+.about p{color:#a8bad1}.about code{padding:2px 5px;border-radius:5px;background:rgba(71,215,255,.08);color:#8cecff}footer{color:#6f86a6}
+::selection{background:rgba(71,215,255,.28);color:#fff}
+:focus-visible{outline:2px solid #47d7ff;outline-offset:3px}
+@media(max-width:1000px){.layout{gap:15px}.sidebar{border-radius:13px;padding:7px}.sidebar a{padding:10px 12px}.hero{min-height:230px}.panel{border-radius:14px}}
+@media(max-width:600px){.topbar{min-height:72px;gap:10px}.brand-mark{width:39px;height:39px;border-radius:12px;font-size:24px}.brand h1{font-size:17px}.brand p{font-size:7px;letter-spacing:.7px}.layout{padding:10px}.sidebar{border-radius:12px}.sidebar a{font-size:11px;padding:9px 10px}.hero{min-height:230px;padding:20px}.hero h2{font-size:29px}.hero p{font-size:13px}.helix-art{right:-10px;font-size:95px;opacity:.13}.panel{padding:14px}.panel-heading h3{font-size:16px}.reference b{font-size:10px;padding:7px}.helix-stage{min-height:280px}}
+@media(prefers-reduced-motion:reduce){.hero,.panel,.ladder-row,.animated-helix span{animation:none!important}.panel,button,.button,.base-cards article,.sidebar a{transition:none!important}}

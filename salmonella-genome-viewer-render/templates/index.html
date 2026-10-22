@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salmonella Genome Viewer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='extras.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">🧬</div>
+    <div class="brand">
+      <h1>Salmonella <span>Genome Viewer</span></h1>
+      <p>BASES NITROGENADAS · GENOMA · BIOINFORMÁTICA</p>
+    </div>
+    <div class="reference"><b>NC_003197.2</b><span>Salmonella Typhimurium LT2</span></div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <a class="active" href="#inicio">⌂ &nbsp; Início</a>
+      <a href="#modelo3d">🧬 &nbsp; Modelo 3D</a>
+      <a href="#sequencia">⇄ &nbsp; Genoma em escada</a>
+      <a href="#explorador">⌖ &nbsp; Explorador</a>
+      <a href="#bases">◈ &nbsp; Bases nitrogenadas</a>
+      <a href="#analisador">⌕ &nbsp; Analisador de sequência</a>
+      <a href="#transcricao">🧬 &nbsp; DNA → RNA</a>
+      <a href="#traducao">⚛ &nbsp; RNA → proteína</a>
+      <a href="#estatisticas">▥ &nbsp; Estatísticas</a>
+      <a href="#sobre">ⓘ &nbsp; Sobre o projeto</a>
+      <div class="side-note">Projeto educacional de visualização do DNA. Os dados são carregados da referência pública do NCBI.</div>
+    </aside>
+
+    <main>
+      <section class="hero" id="inicio">
+        <div class="hero-copy">
+          <p class="eyebrow">VISUALIZADOR DO GENOMA</p>
+          <h2>Explore o DNA da <span>Salmonella</span></h2>
+          <p>Consulte a sequência de bases nitrogenadas em formato de escada, navegue por posições e analise a composição do genoma.</p>
+          <div class="hero-actions">
+            <button id="loadBtn">⟳ Carregar genoma</button>
+            <a class="button secondary" href="#sobre">Saiba mais</a>
+          </div>
+          <p id="statusMessage" class="status">Conectando ao NCBI...</p>
+        </div>
+        <div class="helix-art animated-helix" aria-hidden="true"><span>🧬</span><small>DNA · A T C G</small></div>
+      </section>
+
+
+      <section class="panel helix-panel" id="modelo3d">
+        <div class="panel-heading">
+          <div><h3>🧬 Hélice 3D interativa</h3><p>Gire, aproxime e toque nas bases. Dá para ver um trecho real do genoma.</p></div>
+          <span class="rna-chip">3D · Canvas</span>
+        </div>
+        <div class="helix-layout">
+          <div class="helix-stage" id="helixStage">
+            <canvas id="helixCanvas" aria-label="Dupla hélice de DNA em 3D. Arraste para girar, use pinça ou roda do mouse para aproximar e toque numa base para ver detalhes."></canvas>
+            <span class="helix-hint">Arraste para girar · pinça ou roda para zoom · toque numa base</span>
+          </div>
+          <div class="helix-side">
+            <div class="helix-info" id="helixInfo" aria-live="polite"><b>Toque numa base</b><span class="muted">Veja quem pareia com quem e quantas ligações de hidrogênio existem.</span></div>
+            <div class="helix-source">
+              <span class="muted" id="helixSource">Carregando trecho...</span>
+              <div class="motif-row">
+                <input id="helixStart" type="number" min="1" value="1" inputmode="numeric" aria-label="Posição inicial do trecho">
+                <button type="button" id="helixLoadBtn">Ver trecho</button>
+              </div>
+              <div class="helix-btns">
+                <button type="button" class="secondary" id="helixPrevBtn">← Anterior</button>
+                <button type="button" class="secondary" id="helixNextBtn">Próximo →</button>
+                <button type="button" class="secondary" id="helixExampleBtn">Exemplo</button>
+              </div>
+            </div>
+            <div class="helix-controls">
+              <button type="button" class="secondary" id="helixPlayBtn">❚❚ Pausar</button>
+              <button type="button" class="secondary" id="helixResetBtn">Recentrar</button>
+              <label class="helix-range">Velocidade<input type="range" id="helixSpeed" min="0.2" max="3" step="0.1" value="1"></label>
+              <label class="helix-check"><input type="checkbox" id="helixLabels" checked> Letras nas bases</label>
+            </div>
+            <p class="science-note">Modelo didático. As duas fitas são antiparalelas (5′→3′ e 3′→5′) e a distância entre os sulcos é exagerada para facilitar a visualização.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel dna3d-panel is-legacy" id="modelo3d-legacy" hidden>
+        <div class="panel-heading">
+          <div><h3>🧬 Modelo 3D interativo do DNA</h3><p>Uma dupla hélice animada em perspectiva, com pares de bases nitrogenadas.</p></div>
+          <span class="rna-chip">3D · CSS</span>
+        </div>
+        <div class="dna3d-layout">
+          <div class="dna3d-stage" id="dna3dStage" role="img" aria-label="Modelo animado em perspectiva de uma dupla hélice de DNA">
+            <div class="dna3d-glow"></div>
+            <div class="dna3d-helix">
+              <div class="helix-rung" style="--i:0;--delay:-0.00s"><span class="helix-base base-a">A</span><span class="helix-bond"></span><span class="helix-base base-t">T</span></div><div class="helix-rung" style="--i:1;--delay:-0.14s"><span class="helix-base base-c">C</span><span class="helix-bond"></span><span class="helix-base base-g">G</span></div><div class="helix-rung" style="--i:2;--delay:-0.28s"><span class="helix-base base-g">G</span><span class="helix-bond"></span><span class="helix-base base-c">C</span></div><div class="helix-rung" style="--i:3;--delay:-0.42s"><span class="helix-base base-t">T</span><span class="helix-bond"></span><span class="helix-base base-a">A</span></div><div class="helix-rung" style="--i:4;--delay:-0.56s"><span class="helix-base base-a">A</span><span class="helix-bond"></span><span class="helix-base base-t">T</span></div><div class="helix-rung" style="--i:5;--delay:-0.70s"><span class="helix-base base-g">G</span><span class="helix-bond"></span><span class="helix-base base-c">C</span></div><div class="helix-rung" style="--i:6;--delay:-0.84s"><span class="helix-base base-c">C</span><span class="helix-bond"></span><span class="helix-base base-g">G</span></div><div class="helix-rung" style="--i:7;--delay:-0.98s"><span class="helix-base base-t">T</span><span class="helix-bond"></span><span class="helix-base base-a">A</span></div><div class="helix-rung" style="--i:8;--delay:-1.12s"><span class="helix-base base-c">C</span><span class="helix-bond"></span><span class="helix-base base-g">G</span></div><div class="helix-rung" style="--i:9;--delay:-1.26s"><span class="helix-base base-a">A</span><span class="helix-bond"></span><span class="helix-base base-t">T</span></div><div class="helix-rung" style="--i:10;--delay:-1.40s"><span class="helix-base base-g">G</span><span class="helix-bond"></span><span class="helix-base base-c">C</span></div><div class="helix-rung" style="--i:11;--delay:-1.54s"><span class="helix-base base-t">T</span><span class="helix-bond"></span><span class="helix-base base-a">A</span></div><div class="helix-rung" style="--i:12;--delay:-1.68s"><span class="helix-base base-a">A</span><span class="helix-bond"></span><span class="helix-base base-t">T</span></div><div class="helix-rung" style="--i:13;--delay:-1.82s"><span class="helix-base base-c">C</span><span class="helix-bond"></span><span class="helix-base base-g">G</span></div><div class="helix-rung" style="--i:14;--delay:-1.96s"><span class="helix-base base-g">G</span><span class="helix-bond"></span><span class="helix-base base-c">C</span></div><div class="helix-rung" style="--i:15;--delay:-2.10s"><span class="helix-base base-t">T</span><span class="helix-bond"></span><span class="helix-base base-a">A</span></div>
+            </div>
+            <div class="dna3d-floor"></div>
+          </div>
+          <div class="dna3d-info">
+            <span class="result-pill">MODELO ILUSTRATIVO</span>
+            <h4>Observe a estrutura</h4>
+            <p>As duas fitas se enrolam em uma dupla hélice. Os pares de bases conectam as fitas:</p>
+            <div class="pair-legend"><span class="legend-dot a-dot"></span><b>A</b> — <b>T</b><span class="legend-desc">adenina · timina</span></div>
+            <div class="pair-legend"><span class="legend-dot c-dot"></span><b>C</b> — <b>G</b><span class="legend-desc">citosina · guanina</span></div>
+            <div class="dna3d-controls">
+              <button class="secondary" id="dna3dPauseBtn" type="button">❚❚ Pausar animação</button>
+              <button class="secondary" id="dna3dSpeedBtn" type="button">↗ Acelerar</button>
+            </div>
+            <p class="science-note">Este é um modelo visual simplificado para fins educativos, não uma representação atômica nem a estrutura física exata de uma região específica do genoma.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="sequencia">
+        <div class="panel-heading">
+          <div><h3>🧬 Sequência de bases nitrogenadas</h3><p>Navegue pelo genoma em blocos, com a fita complementar em cada posição.</p></div>
+          <div class="total-chip">Total: <b id="sequenceTotal">carregando…</b></div>
+        </div>
+        <div class="controls">
+          <label>Posição inicial<input id="startInput" type="number" min="1" value="1"></label>
+          <label>Tamanho do bloco<select id="limitSelect"><option>25</option><option selected>100</option><option>200</option><option>500</option></select></label>
+          <button class="secondary" id="prevBtn">← Anterior</button>
+          <button id="nextBtn">Próximo →</button>
+          <button class="secondary" id="showBtn">Ir para posição</button>
+        </div>
+        <div class="legend"><span><i class="base-a">A</i> Adenina</span><span><i class="base-t">T</i> Timina</span><span><i class="base-c">C</i> Citosina</span><span><i class="base-g">G</i> Guanina</span><span><i class="base-n">N</i> Base não determinada</span></div>
+        <div class="ladder-wrap">
+          <div class="ladder-title"><span>POSIÇÃO</span><span>FITA 1</span><span>PAR</span><span>FITA 2 (COMPLEMENTAR)</span></div>
+          <div id="ladder" class="ladder"><div class="loading">Carregando sequência...</div></div>
+        </div>
+        <div class="sequence-footer"><span id="rangeText">—</span><button class="secondary" id="copyBtn">▣ Copiar trecho</button></div>
+      </section>
+
+      <section class="two-columns">
+        <section class="panel" id="estatisticas">
+          <div class="panel-heading"><div><h3>▥ Estatísticas do genoma</h3><p>Composição da sequência de referência</p></div></div>
+          <div id="stats" class="stats"><div class="loading">Aguardando dados...</div></div>
+          <div class="gc-box"><div><span>Conteúdo GC</span><b id="gcValue">—</b></div><div class="bar"><span id="gcBar"></span></div></div>
+        </section>
+        <section class="panel" id="bases">
+          <div class="panel-heading"><div><h3>◈ Bases nitrogenadas</h3><p>Regras de pareamento do DNA</p></div></div>
+          <div class="base-cards">
+            <article><i class="base-a">A</i><div><b>Adenina</b><small>Pareia com Timina (T)</small><small>Base púrica</small></div></article>
+            <article><i class="base-t">T</i><div><b>Timina</b><small>Pareia com Adenina (A)</small><small>Base pirimídica</small></div></article>
+            <article><i class="base-c">C</i><div><b>Citosina</b><small>Pareia com Guanina (G)</small><small>Base pirimídica</small></div></article>
+            <article><i class="base-g">G</i><div><b>Guanina</b><small>Pareia com Citosina (C)</small><small>Base púrica</small></div></article>
+          </div>
+          <div class="pairing"><b>Complementaridade</b><div><i class="base-a">A</i> ↔ <i class="base-t">T</i><span></span><i class="base-c">C</i> ↔ <i class="base-g">G</i></div></div>
+        </section>
+      </section>
+
+      <section class="panel explorer" id="explorador">
+        <div class="panel-heading">
+          <div><h3>⌖ Explorador do genoma</h3><p>Veja onde o conteúdo GC varia e procure motivos nas duas fitas.</p></div>
+        </div>
+        <div class="chart-head"><b>Conteúdo GC ao longo do cromossomo</b><span id="gcChartInfo" class="muted">Toque no gráfico para ver uma região</span></div>
+        <div id="gcChart" class="gc-chart" role="img" aria-label="Gráfico do conteúdo GC por região do genoma"><div class="loading">Carregando gráfico...</div></div>
+        <div class="explorer-tools">
+          <div class="tool">
+            <label for="motifInput">Buscar motivo de DNA</label>
+            <div class="motif-row"><input id="motifInput" placeholder="Ex.: GAATTC" maxlength="60" autocomplete="off" autocapitalize="characters" spellcheck="false"><button id="motifBtn" type="button">Buscar</button></div>
+            <div id="motifResult" class="motif-result" aria-live="polite"></div>
+          </div>
+          <div class="tool">
+            <label for="rcInput">Complemento reverso</label>
+            <div class="motif-row"><input id="rcInput" placeholder="Ex.: ATGCGT" autocomplete="off" autocapitalize="characters" spellcheck="false"><button id="rcBtn" type="button">Gerar</button></div>
+            <div id="rcOutput" class="motif-result" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="analisador">
+        <div class="panel-heading"><div><h3>⌕ Analisador de sequência</h3><p>Cole uma sequência para contar bases e calcular o conteúdo GC.</p></div></div>
+        <textarea id="analyzeInput" placeholder="Ex.: ATGCGTACGTTAGC..."></textarea>
+        <div class="analyze-actions"><button class="secondary" id="exampleBtn">Usar exemplo</button><button id="analyzeBtn">Analisar sequência</button></div>
+        <div id="analysisResult" class="analysis-result"></div>
+      </section>
+
+
+      <section class="panel transcription-panel" id="transcricao">
+        <div class="panel-heading">
+          <div><h3>🧬 Transcrição: DNA → RNA</h3><p>Converta uma sequência de DNA em RNA mensageiro (RNAm).</p></div>
+          <span class="rna-chip">RNA · U no lugar de T</span>
+        </div>
+        <div class="transcription-intro">
+          <div class="molecule-animation" aria-hidden="true">
+            <div class="molecule-strand dna-strand"><span>A</span><span>T</span><span>G</span><span>C</span><span>A</span><span>T</span><span>G</span><span>C</span></div>
+            <div class="molecule-arrows">⟶</div>
+            <div class="molecule-strand rna-strand"><span>U</span><span>A</span><span>C</span><span>G</span><span>U</span><span>A</span><span>C</span><span>G</span></div>
+          </div>
+          <p>Escolha qual fita você está informando. A sequência de RNA depende da orientação da fita usada.</p>
+        </div>
+        <label class="transcription-label" for="transcribeInput">Sequência de DNA</label>
+        <textarea id="transcribeInput" placeholder="Ex.: ATGCGTACGTTAGC..." spellcheck="false"></textarea>
+        <div class="transcription-options">
+          <label for="strandMode">A sequência informada é a:</label>
+          <select id="strandMode">
+            <option value="coding" selected>Fita codificadora (5′ → 3′): trocar T por U</option>
+            <option value="template">Fita molde (3′ → 5′): gerar a complementar de RNA</option>
+          </select>
+        </div>
+        <div class="analyze-actions transcription-actions">
+          <button class="secondary" id="useCurrentBtn">Usar trecho exibido acima</button>
+          <button class="secondary" id="transcribeExampleBtn">Usar exemplo</button>
+          <button id="transcribeBtn">Transcrever para RNA</button>
+        </div>
+        <div id="transcriptionResult" class="transcription-result" aria-live="polite">
+          <p class="muted">O resultado da transcrição aparecerá aqui.</p>
+        </div>
+        <p class="science-note"><b>Nota científica:</b> para a fita codificadora, o RNAm tem a mesma sequência (no sentido 5′ → 3′), mas com U no lugar de T. Para a fita molde, o RNA é complementar. A ferramenta considera a orientação indicada por você e não identifica automaticamente os genes ou a fita usada por cada gene no genoma completo.</p>
+      </section>
+
+      <!-- SEÇÃO RNA 3D -->
+<section id="rna3d-section" class="rna3d-section">
+  <div class="rna3d-header">
+      <span class="rna3d-tag">BIOLOGIA MOLECULAR</span>
+      <h2>Modelo 3D do RNA</h2>
+      <p>
+          Explore a estrutura de uma fita de RNA e observe
+          a disposição dos seus nucleotídeos.
+      </p>
+  </div>
+
+  <div class="rna3d-card">
+      <div class="rna3d-stage" id="rna3d-stage">
+          <div class="rna3d-scene">
+              <div class="rna3d-molecule" id="rna3d-molecule"></div>
+          </div>
+          <div class="rna3d-floor"></div>
+      </div>
+
+      <p class="rna3d-hint">Dica: arraste o modelo para girar e use a roda do mouse para aproximar ou afastar.</p>
+      <div class="rna3d-legend">
+          <span><i class="rna-base-a"></i> A — Adenina</span>
+          <span><i class="rna-base-u"></i> U — Uracila</span>
+          <span><i class="rna-base-c"></i> C — Citosina</span>
+          <span><i class="rna-base-g"></i> G — Guanina</span>
+      </div>
+
+      <div class="rna3d-controls">
+          <button type="button" id="rna3d-pause">⏸ Pausar</button>
+          <button type="button" id="rna3d-speed">⚡ Acelerar</button>
+          <button type="button" id="rna3d-shape">↔ Mudar formato</button>
+          <button type="button" id="rna3d-reset">⟲ Redefinir vista</button>
+      </div>
+      <div class="rna3d-sequence-panel">
+        <span class="muted">Sequência ilustrativa de RNA</span>
+        <code id="rna3d-sequence">AUGCUACGGAUCCGUA</code>
+      </div>
+
+      <p class="rna3d-status" id="rna3d-status">
+          Animação em andamento
+      </p>
+
+      <div class="rna3d-info">
+          <h3>Como interpretar o modelo?</h3>
+          <p>
+              O RNA geralmente é formado por uma única cadeia de
+              nucleotídeos. Suas bases são adenina (A), uracila (U),
+              citosina (C) e guanina (G).
+          </p>
+          <p>
+              <strong>Importante:</strong> esta hélice é uma
+              representação visual ilustrativa. O RNA real pode
+              assumir diferentes formas tridimensionais dependendo
+              da sequência e das interações entre suas partes.
+          </p>
+      </div>
+  </div>
+</section>
+      <section class="panel translation-panel" id="traducao">
+        <div class="section-heading">
+          <span class="eyebrow">CÓDIGO GENÉTICO</span>
+          <h2>Tradutor de RNA → proteína</h2>
+          <p>Separe uma sequência de RNAm em códons e veja o aminoácido correspondente. A tradução começa no primeiro nucleotídeo informado; esta ferramenta não procura automaticamente um códon de início.</p>
+        </div>
+        <label for="translateInput">Sequência de RNA</label>
+        <textarea id="translateInput" rows="3" placeholder="Ex.: AUGGCCUUUGAA"></textarea>
+        <div class="translation-actions">
+          <button type="button" id="translateExampleBtn" class="secondary" onclick="document.getElementById('translateInput').value='AUGGCCUUUGAA'">Usar exemplo</button>
+          <button type="button" id="translateBtn">Traduzir códons</button>
+        </div>
+        <div id="translateResult" class="codon-results"><p class="muted">O resultado aparecerá aqui.</p></div>
+        <p class="science-note"><b>Nota:</b> esta é uma tradução didática do código genético padrão. Ela não confirma que a sequência pertença a um gene funcional da Salmonella.</p>
+      </section>
+
+      <section class="panel about" id="sobre">
+        <h3>Sobre os dados</h3>
+        <p>Este projeto consulta a referência <b>NC_003197.2</b>, associada à <i>Salmonella enterica</i> sorovar Typhimurium, cepa LT2, pelo serviço público NCBI E-utilities. O primeiro carregamento exige conexão com a internet; depois, a sequência fica guardada localmente no arquivo <code>salmonella_sequence.txt</code>.</p>
+        <p><b>Importante:</b> a letra N representa uma base não determinada na sequência de referência. A contagem de bases é calculada sobre todos os caracteres, incluindo N.</p>
+        <a class="download-link" href="/api/download">↓ Baixar sequência FASTA completa</a>
+      </section>
+      <footer>Salmonella Genome Viewer · Projeto educacional de bioinformática</footer>
+    </main>
+  </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+  <script src="{{ url_for('static', filename='extras.js') }}"></script>
+  <script src="{{ url_for('static', filename='helix3d.js') }}"></script>
+
+</body>
+</html>
